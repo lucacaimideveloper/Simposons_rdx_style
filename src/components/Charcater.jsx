@@ -6,16 +6,15 @@ import Delete from "./Delete";
 
 class Charcater extends Component {
   render() {
-    const { character, quote, image, id, characterDirection, liked } =
-      this.props.item;
+    const { character, quote, image, id, liked } = this.props.item;
 
     return (
       <>
         <div className="characterContainer">
-          <Name character={character} id={id} liked={liked} />
+          <Name character={character} id={id} />
           <Quote quote={quote} />
           <Image image={image} />
-          <Delete id={id} />
+          <Delete id={id} liked={liked} />
         </div>
       </>
     );

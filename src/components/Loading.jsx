@@ -1,13 +1,11 @@
-import React, { Component } from "react";
-
-class Loading extends Component {
-  render() {
-    return (
-      <>
-        <h1>Loading....</h1>
-      </>
-    );
-  }
-}
+import React from "react";
+//add spinner
+const Loading = () => {
+  return (
+    <>
+      <h1>Loading....</h1>
+    </>
+  );
+};
 
 export default Loading;

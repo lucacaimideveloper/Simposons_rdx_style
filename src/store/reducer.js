@@ -1,47 +1,70 @@
-// import { initialState } from "./initialSate";
-// import {
-//   DELETE_CHARACTER,
-//   SET_API_DATA,
-//   SET_SORT_TYPE,
-//   TOGGLE_LIKED,
-//   SET_SEARCH_TERM,
-// } from "./types";
+import { initialState } from "./initialSate";
+import {
+  SET_API_DATA,
+  DELETE_CHARACTER,
+  TOGGLE_LIKED,
+  SET_SORT_ORDER,
+} from "./types";
 
-// export function reducer(state = initialState, action) {
-//   const { payload } = action;
+export function reducer(state = initialState, action) {
+  switch (action.type) {
+    //get Data
+    case "SET_API_DATA":
+      return { ...state, characters: action.payload };
+    //Delete
+    case DELETE_CHARACTER: {
+      const indexOf = state.characters.findIndex((character) => {
+        return character.quote === action.payload;
+      });
+      const simpsons = [...state.characters];
+      simpsons.splice(indexOf, 1);
+      return { ...state, characters: simpsons };
+    }
 
-//   switch (action.type) {
-//     case SET_SORT_TYPE:
-//       return { ...state, sortType: payload };
+    case TOGGLE_LIKED: {
+      const index = state.characters.findIndex(
+        (character) => character.quote === action.payload
+      );
+      const updatedCharacters = [...state.characters];
 
-//     case SET_API_DATA:
-//       return { ...state, simpsons: payload };
+      updatedCharacters[index].liked = !updatedCharacters[index].liked;
 
-//     case DELETE_CHARACTER: {
-//       const indexOf = state.simpsons.findIndex((character) => {
-//         return character.id === payload;
-//       });
+      return { ...state, characters: updatedCharacters };
+    }
+    case SET_SORT_ORDER: {
+      return { ...state, sortOrder: action.payload };
+    }
+    default:
+      console.log("reducer started or Invalid reducer type, check your spell");
+      return state;
+  }
+}
 
-//       const simpsons = [...state.simpsons];
-//       simpsons.splice(indexOf, 1);
-//       return { ...state, simpsons };
-//     }
-//     case TOGGLE_LIKED: {
-//       const indexOf = state.simpsons.findIndex((character) => {
-//         return character.id === payload;
-//       });
-//       const simpsons = [...state.simpsons];
+// // case SET_API_DATA: {
+// //   const _state = { ...state };
+// //   _state.characters = action.payload;
 
-//       simpsons[indexOf].liked = !simpsons[indexOf].liked;
-//       return { ...state, simpsons };
-//     }
+// //   return _state;
+// // }
 
-//     case SET_SEARCH_TERM: {
-//       return { ...state, searchTerm: payload };
-//     }
+// case TOGGLE_LIKED: {
+//   const index = state.characters.findIndex(
+//     (character) => character.quote === action.payload
+//   );
+//   console.log("Index:", index);
+//   console.log("Characters:", state.characters);
 
-//     default:
-//       console.log("reducer started or Invalid reducer type, check your spell");
-//       return state;
+//   if (index === -1) {
+//     console.error("Character not found for toggle action:", action.payload);
+//     return state;
 //   }
+
+//   const updatedCharacters = [...state.characters];
+//   updatedCharacters[index].liked = !updatedCharacters[index].liked;
+
+//   return { ...state, characters: updatedCharacters };
+// }
+
+// case SET_SEARCH_TERM: {
+//   //   return { ...state, searchTerm: payload };
 // }

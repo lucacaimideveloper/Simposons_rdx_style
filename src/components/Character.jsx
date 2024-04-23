@@ -1,29 +1,26 @@
 import React from "react";
-
-// import Delete from "./Delete";
+import Card from "./Card";
+import { useDispatch, useSelector } from "react-redux";
 
 const Character = (props) => {
-  const { character, item, onLikeToggle, onDelete } = props;
+  // const characters = useSelector((state) => state.characters);
 
-  return (
-    <>
-      <div className="characterContainer">
-        <h1>{item.character}</h1>
-        <p>{item.quote} </p>
-        <div
-          className={"item.characterDirection" === "Right" ? "right" : "left"}>
-          <img src={item.image} alt={item.character} />
-        </div>
-        <div>
-          <button onClick={() => onDelete(item.quote)}>DELETE</button>
-          <button onClick={() => onLikeToggle(item.quote)}>
-            <i
-              style={{ color: item.liked ? " red" : "white" }}
-              className="fa-solid fa-heart"></i>
-          </button>
-        </div>
+  // const { characters } = props;
+  const dispatch = useDispatch();
+
+  return props.characters.map((item) => {
+    return (
+      <div className="charcaterContainer" key={item.quote}>
+        <Card
+          item={item}
+          liked={item.liked}
+          name={item.name}
+          quote={item.quote}
+          image={item.image}
+          characterDirection={item.characterDirection}
+        />
       </div>
-    </>
-  );
+    );
+  });
 };
 export default Character;
